@@ -1,11 +1,15 @@
 % hw3.pl
-% ADD YOUR NAME HERE
+% Owen Fankhauser
+% CSE465B
+% 14 October 2024
 
 % ------------------------------------------------
 % #1 (Undergraduate/Graduate) (5/5 pts)
 % Determine the Maximum of two int numbers
 % maxnums(A, B, MAX).
 
+maxnums(A, B, A) :- A >= B.
+maxnums(A, B, B) :- B > A.
 
 % maxnums(-12, 12, MAX). -> MAX = 12
 % maxnums(11232, 92674, MAX). -> MAX = 92674
@@ -14,6 +18,9 @@
 % #2 (Undergraduate/Graduate) (5/5 pts)
 % Determine the summation of a list of integer numbers
 % sum(LST, SUM).
+
+sum([], 0). % Empty-Base
+sum([Top|Bottom], SUM) :- sum(Bottom, Total), SUM is Top + Total.
 
 
 % sum([1, 2, 3, 4], SUM). -> SUM = 10
