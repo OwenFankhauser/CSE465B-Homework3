@@ -56,8 +56,8 @@ partitionable(LST) :- sum(LST, Total), Total mod 2 =:= 0, Half is Total // 2, pa
 % Helpers 
 part_helper([], 0).
 part_helper(_, 0). 
-part_helper([Head|Tail], Sum) :- Head =< Sum, NewSum is Sum - Head, part_helper(Tail, NewSum).
-part_helper([_|Tail], Sum) :- part_helper(Tail, Sum).
+part_helper([Top|Bottom], Sum) :- Top =< Sum, NewSum is Sum - Top, part_helper(Bottom, NewSum).
+part_helper([_|Bottom], Sum) :- part_helper(Bottom, Sum).
 
  
 % partitionable([1, 2, 3, 4, 10]). -> true. because [10, 10]
@@ -71,6 +71,9 @@ part_helper([_|Tail], Sum) :- part_helper(Tail, Sum).
 % list of integer numbers
 % elementExist(E, LST).
 
+elementExist(_, []):- false.
+elementExist(E, [E|_]) :- true.
+elementExist(E, [_|Bottom]) :- elementExist(E, Bottom).
 
 % elementExist(1, [1, 2, 3]). -> true.
 % elementExist(1, []). -> false.
@@ -80,6 +83,8 @@ part_helper([_|Tail], Sum) :- part_helper(Tail, Sum).
 % Determine the reverse list of integer numbers
 % reverse(LST, REVLST).
 
+reverse([], []). % Empty is reversed
+reverse([Top|Bottom], REVLST) :- reverse(Bottom, Reversed), append(Reversed, [Top], REVLST).
 
 % reverse([], REVLST). -> REVLST = []
 % reverse([1, 1, 1], REVLST). -> REVLST = [1, 1, 1]
