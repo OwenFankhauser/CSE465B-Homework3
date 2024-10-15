@@ -50,6 +50,15 @@ max([Top|Bottom], MAX) :- max(Bottom, Temp), maxnums(Top, Temp, MAX).
 % ** You can always assume that the given LST is not empty. 
 % partitionable(LST).
 
+% Empty-Base
+partitionable(LST) :- sum(LST, Total), Total mod 2 =:= 0, Half is Total // 2, part_helper(LST, Half).
+
+% Helpers 
+part_helper([], 0).
+part_helper(_, 0). 
+part_helper([Head|Tail], Sum) :- Head =< Sum, NewSum is Sum - Head, part_helper(Tail, NewSum).
+part_helper([_|Tail], Sum) :- part_helper(Tail, Sum).
+
  
 % partitionable([1, 2, 3, 4, 10]). -> true. because [10, 10]
 % partitionable([2, 1, 1]). -> true. because [2, 2]
