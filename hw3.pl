@@ -34,6 +34,9 @@ sum([Top|Bottom], SUM) :- sum(Bottom, Total), SUM is Top + Total.
 % ** You can always assume that the given LST is not empty. 
 % max(LST, MAX).
 
+max([Top], Top). % Empty-Base
+max([Top|Bottom], MAX) :- max(Bottom, Temp), maxnums(Top, Temp, MAX).
+
 
 % max([-5, -5, -5], MAX). -> MAX = -5
 % max([1], MAX). -> MAX = 1
