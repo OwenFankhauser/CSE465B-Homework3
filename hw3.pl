@@ -95,6 +95,11 @@ reverse([Top|Bottom], REVLST) :- reverse(Bottom, Reversed), append(Reversed, [To
 % Determine the list of integer numbers that are only one digit numbers
 % collectOneDigits(LST, NEWLST). 
 
+collectOneDigits([], []). % Empty-Base
+
+collectOneDigits([Top|Bottom], [Top|NEWLST]) :- Top >= -9, Top =< 9, collectOneDigits(Bottom, NEWLST).
+collectOneDigits([Top|Bottom], NEWLST) :- (Top < -9 ; Top > 9), collectOneDigits(Bottom, NEWLST).
+
 
 % collectOneDigits([10, 90, -20], NEWLST). -> NEWLST = []
 % collectOneDigits([], NEWLST). -> NEWLST = []
