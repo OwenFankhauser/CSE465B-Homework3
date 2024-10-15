@@ -157,12 +157,21 @@ getStateInfo(PLACE, STATE, ZIPCODE) :- location(ZIPCODE, PLACE, STATE, _, _, _).
 % ** You are to do your own search to find a way to return all 
 %    places as a single list. You can use any necessary predicate 
 %    from Prolog library. Being able to learn something
-%    about a new programming language on your own is a skil that takes
+%    about a new programming language on your own is a skill that takes
 %    practice. 
 % getCommon(STATE1, STATE2, PLACELST).
 
 
-% getCommon('OH','MI',PLACELST). -> *Should be 131 unique plcase* 
+getCommon(STATE1, STATE2, PLACELST) :- places(STATE1, PLACES1), places(STATE2, PLACES2),
+    intersection(PLACES1, PLACES2, Commons), remove_duplicates(Commons, PLACELST).
+
+% Helper searches places
+places(State, Places) :- findall(Place, location(_, Place, State, _, _, _), Places).
+
+% Helper removes duplicates and merges list
+remove_duplicates(List, Uniques) :- sort(List, Uniques).
+
+% getCommon('OH','MI',PLACELST). -> *Should be 131 unique places* 
 % ['Manchester','Unionville','Athens','Saint
 % Johns','Belmont','Bellaire','Bridgeport','Lansing','Flushing','D
 % ecatur','Hamilton','Oxford','Trenton','Monroe','Augusta','Carrol
